@@ -55,7 +55,7 @@ class mapmatching:
 
     #map matching
     def point_to_curve(self):
-        x_list, y_list = self.rot_ydeg()
+        x_list, y_list = self.rot_deg()
         link_list = self.find_link(x_list, y_list)
         for link in self.links:
             plt.scatter(link[0][0], link[0][1])
@@ -107,20 +107,34 @@ class mapmatching:
         return modified
 
     #座標軸を調整
-    def rot_ydeg(self):
+    def rot_deg(self):
         x_dash = []
         y_dash = []
         x_result = []
         y_result = []
+        c = 0
         for x_c, y_c in zip(self.x, self.y):
-            if y_c < 0:
+            if ((x_c <= 0) & (y_c < 0)):
                 x_dash.append(x_c)
                 y_dash.append(y_c)
+                c -= 1
+            elif ((x_c > 0) & (y_c >= 0)):
+                x_dash.append(x_c)
+                y_dash.append(y_c)
+                c += 1
         min_deg = 0
         for x_m, y_m in zip(x_dash, y_dash):
-            atan = -np.arctan(y_m / x_m) * 180 / math.pi
-            if atan < min_deg:
-                min_deg = atan
+            if ((c > 0) & (x_m < 0)) | ((c < 0) & (y_m > 0)):
+                continue
+            elif c < 0:
+                atan = -np.arctan(y_m / x_m) * 180 / math.pi
+                print(atan)
+                if atan < min_deg:
+                    min_deg = atan
+            else:
+                atan = 90 - np.arctan(y_m / x_m) * 180 / math.pi
+                if atan > min_deg:
+                    min_deg = atan
         deg = np.deg2rad(min_deg)
         cos = np.cos(deg)
         sin = np.sin(deg)

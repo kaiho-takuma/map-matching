@@ -4,38 +4,34 @@ import numpy as np
 
 class Testmapmatching(TestCase):
     def test_find_link(self):
-        a=np.array(range(10))
-        zero=np.zeros(10)
+        a=np.array(range(0,10,2))
+        zero=np.zeros(5)
         links = [[[0, 0], [10, 0]], [[0, 0], [0, 10]], [[10, 0], [10, 10]], [[0, 10], [10, 10]]]
         myclass = mapmatching(a, zero, links)
         print(myclass.find_link(a,zero))
-        myclass = mapmatching(zero, a, links)
-        print(myclass.find_link(zero,a))
+
 
 
     def test_point_to_curve(self):
         a = np.array(range(10))
-        b = np.random.randint(-2, 2, 10)
+        b = np.random.randint(-1, 1, 10)
+        expect = [[0, v] for v in np.array(range(0, 10))]
         links = [[[0, 0], [10, 0]], [[0, 0], [0, 10]], [[10, 0], [10, 10]], [[0, 10], [10, 10]]]
-        myclass = mapmatching(a, b, links)
+        myclass = mapmatching(b, a, links)
         modified = myclass.point_to_curve()
+        print(modified)
+        assert(expect==modified)
 
-    def test_rot_ydeg(self):
+    def test_rot_deg(self):
         m = np.random.randint(-10, 0, 10)
-        m1 = np.random.randint(-10, 0, 10)
-        p = np.random.randint(0, 10, 10)
+        m_diff = np.random.randint(-5, 0, 10)
         links = [[[0,0],[10,0]],[[0,0],[0,10]],[[10,0],[10,10]],[[0,10],[10,10]]]
-        myclass = mapmatching(m,m1,links)
-        x, y = myclass.rot_ydeg()
-        assert (all(item < 0 for item in x))
-        assert (all(item > 0 for item in y))
-        myclass = mapmatching(p, m, links)
-        x, y = myclass.rot_ydeg()
-        assert (all(item < 0 for item in x))
-        assert (all(item > 0 for item in y))
-        #x, y = self.rot_deg(p, p)
-        #assert (all(item < 0 for item in x))
-        #assert (all(item > 0 for item in y))
+        myclass = mapmatching(m,m_diff,links)
+        x, y = myclass.rot_deg()
+        print(x)
+        print(y)
+        assert (all(item <= 0 for item in x))
+        assert (all(item >= 0 for item in y))
 
 
 if __name__ == '__main__':
