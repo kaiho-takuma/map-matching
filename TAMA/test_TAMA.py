@@ -1,5 +1,4 @@
 from unittest import TestCase
-<<<<<<< HEAD
 from TAMA import mapmatching
 import numpy as np
 
@@ -41,10 +40,3 @@ class Testmapmatching(TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-=======
-
-
-class Testmapmatching(TestCase):
-    def test_rot_ydeg(self):
-        self.fail()
->>>>>>> origin/master
