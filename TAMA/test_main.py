@@ -1,5 +1,5 @@
 from unittest import TestCase
-from TAMA import mapmatching
+from main import MapMatching
 import numpy as np
 
 class Testmapmatching(TestCase):
@@ -7,9 +7,8 @@ class Testmapmatching(TestCase):
         a=np.array(range(0,10,2))
         zero=np.zeros(5)
         links = [[[0, 0], [10, 0]], [[0, 0], [0, 10]], [[10, 0], [10, 10]], [[0, 10], [10, 10]]]
-        myclass = mapmatching(a, zero, links)
+        myclass = MapMatching(a, zero, links)
         print(myclass.find_link(a,zero))
-
 
 
     def test_point_to_curve(self):
@@ -17,7 +16,7 @@ class Testmapmatching(TestCase):
         b = np.random.randint(-1, 1, 10)
         expect = [[0, v] for v in np.array(range(0, 10))]
         links = [[[0, 0], [10, 0]], [[0, 0], [0, 10]], [[10, 0], [10, 10]], [[0, 10], [10, 10]]]
-        myclass = mapmatching(b, a, links)
+        myclass = MapMatching(b, a, links)
         modified = myclass.point_to_curve()
         print(modified)
         assert(expect==modified)
@@ -26,7 +25,7 @@ class Testmapmatching(TestCase):
         m = np.random.randint(-10, 0, 10)
         m_diff = np.random.randint(-5, 0, 10)
         links = [[[0,0],[10,0]],[[0,0],[0,10]],[[10,0],[10,10]],[[0,10],[10,10]]]
-        myclass = mapmatching(m,m_diff,links)
+        myclass = MapMatching(m,m_diff,links)
         x, y = myclass.rot_deg()
         print(x)
         print(y)

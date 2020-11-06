@@ -2,8 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import random
-class mapmatching:
 
+class MapMatching:
     # コンストラクタ
     def __init__(self, x, y, links):
         self.x = x
@@ -53,7 +53,7 @@ class mapmatching:
             link_list.append(d_list.index(min(d_list)))
         return link_list
 
-    #map matching
+    # map matching関数
     def point_to_curve(self):
         x_list, y_list = self.rot_deg()
         link_list = self.find_link(x_list, y_list)
@@ -106,7 +106,7 @@ class mapmatching:
                         print(1)
         return modified
 
-    #座標軸を調整
+    # 座標軸を回転して調整
     def rot_deg(self):
         x_dash = []
         y_dash = []
