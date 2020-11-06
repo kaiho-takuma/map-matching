@@ -6,12 +6,24 @@ import random
 class MapMatching:
     # コンストラクタ
     def __init__(self, x, y, links):
+        """
+        :param x: 歩行座標のx座標リスト
+        :param y: 歩行座標のy座標リスト
+        :param links: 経路座標を[[[xbegin,ybegin],[xend,yend]]...]としてリストに格納
+        """
         self.x = x
         self.y = y
         self.links = links
 
     # 歩行座標に対して最も近い通路を探索
     def find_link(self, x_list, y_list):
+        """
+        rot_degを行った歩行座標に対して最も距離の近い経路を探索
+
+        :param x_list: rot_degから出力された歩行座標のx座標
+        :param y_list: rot_degから出力された歩行座標のy座標
+        :return: 歩行座標のマッチング候補経路番号のリスト
+        """
         link_list = []
         for x0, y0 in zip(x_list, y_list):
             d_list = []
@@ -55,6 +67,10 @@ class MapMatching:
 
     # map matching関数
     def point_to_curve(self):
+        """
+        point_to_curveにより歩行座標を最も近い経路上に座標を修正
+        :return: マップマッチングした歩行座標
+        """
         x_list, y_list = self.rot_deg()
         link_list = self.find_link(x_list, y_list)
         for link in self.links:
@@ -108,6 +124,10 @@ class MapMatching:
 
     # 座標軸を回転して調整
     def rot_deg(self):
+        """
+        AR COREで取得した座標の座標軸を修正
+        :return:修正した歩行座標リスト
+        """
         x_dash = []
         y_dash = []
         x_result = []
