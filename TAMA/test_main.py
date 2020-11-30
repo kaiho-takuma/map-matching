@@ -22,11 +22,16 @@ class Testmapmatching(TestCase):
         assert(expect==modified)
 
     def test_rot_deg(self):
+        x=[]
+        y=[]
         m = np.random.randint(-10, 0, 10)
         m_diff = np.random.randint(-5, 0, 10)
         links = [[[0,0],[10,0]],[[0,0],[0,10]],[[10,0],[10,10]],[[0,10],[10,10]]]
         myclass = MapMatching(m,m_diff,links)
-        x, y = myclass.rot_deg()
+        result = myclass.rot_deg()
+        for i,j in result:
+            x.append(i)
+            y.append(j)
         print(x)
         print(y)
         assert (all(item <= 0 for item in x))

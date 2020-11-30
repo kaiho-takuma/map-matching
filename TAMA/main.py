@@ -71,8 +71,13 @@ class MapMatching:
         point_to_curveにより歩行座標を最も近い経路上に座標を修正
         :return: マップマッチングした歩行座標
         """
-        x_list, y_list = self.rot_deg()
+        x_list=[]
+        y_list=[]
+        modified = self.rot_deg()
         link_list = self.find_link(x_list, y_list)
+        for x,y in modified:
+            x_list.append(x)
+            y_list.append(y)
         for link in self.links:
             plt.scatter(link[0][0], link[0][1])
             plt.scatter(link[1][0], link[1][1])
@@ -130,8 +135,9 @@ class MapMatching:
         """
         x_dash = []
         y_dash = []
-        x_result = []
-        y_result = []
+        #x_result = []
+        #y_result = []
+        result=[]
         c = 0
         for x_c, y_c in zip(self.x, self.y):
             if ((x_c <= 0) & (y_c < 0)):
@@ -161,7 +167,8 @@ class MapMatching:
         for x_c, y_c in zip(self.x, self.y):
             rot_x = (x_c * cos) - (y_c * sin)
             rot_y = (x_c * sin) + (y_c * cos)
-            x_result.append(rot_x)
-            y_result.append(rot_y)
-        return [x_result, y_result]
+            result.append([rot_x,rot_y])
+            #x_result.append(rot_x)
+            #y_result.append(rot_y)
+        return result
 
