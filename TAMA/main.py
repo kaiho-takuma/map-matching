@@ -74,10 +74,10 @@ class MapMatching:
         x_list=[]
         y_list=[]
         modified = self.rot_deg()
-        link_list = self.find_link(x_list, y_list)
         for x,y in modified:
             x_list.append(x)
             y_list.append(y)
+        link_list = self.find_link(x_list, y_list)
         for link in self.links:
             plt.scatter(link[0][0], link[0][1])
             plt.scatter(link[1][0], link[1][1])
@@ -118,8 +118,8 @@ class MapMatching:
                     h = (P - p1) @ v * v + p1
                     modified.append(h)
                 if s * t > 0:
-                    if ((link[0][0] - x0) * (link[0][0] - x0) + (link[0][1] - y0) * (link[0][1] - y0)) > (
-                            (link[1][0] - x0) * (link[1][0] - x0) + (link[1][1] - y0) * (link[1][1] - y0)):
+                    if ((x_l0 - x0) * (x_l0 - x0) + (y_l0 - y0) * (y_l0 - y0)) > (
+                            (x_l1 - x0) * (x_l1 - x0) + (y_l1 - y0) * (y_l1 - y0)):
                         modified.append(self.links[l][1])
                         print(1)
                     else:
